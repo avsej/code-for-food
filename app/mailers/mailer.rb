@@ -1,6 +1,4 @@
 class Mailer < ActionMailer::Base
-  default :from => ActionMailer::Base.smtp_settings[:user_name]
-
   def invitation(invitation)
     @invitation = invitation
     category "invitation-#{Rails.env}"
@@ -16,6 +14,7 @@ class Mailer < ActionMailer::Base
     category "menu-published-#{Rails.env}"
 
     mail :bcc => users.map(&:email),
+         :from => ActionMailer::Base.smtp_settings[:user_name],
          :subject => "Опубликовано меню на \"#{@menu}\""
   end
 
@@ -33,6 +32,7 @@ class Mailer < ActionMailer::Base
 
     @user = user
     mail :to => @user.email,
+         :from => ActionMailer::Base.smtp_settings[:user_name],
          :subject => "[Code-for-Food] Инструкция по восстановлению пароля."
   end
 
@@ -41,6 +41,7 @@ class Mailer < ActionMailer::Base
     @question = question
 
     mail :bcc => users.map(&:email),
+         :from => ActionMailer::Base.smtp_settings[:user_name],
          :subject => "[Code-for-Food] #{question.user} что-то спросил..."
   end
 
@@ -49,6 +50,7 @@ class Mailer < ActionMailer::Base
     @answer = answer
 
     mail :bcc => users.map(&:email),
+         :from => ActionMailer::Base.smtp_settings[:user_name],
          :subject => "[Code-for-Food] #{answer.user} что-то ответил..."
   end
 
