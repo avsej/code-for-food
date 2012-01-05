@@ -13,7 +13,7 @@ class Mailer < ActionMailer::Base
 
     category "menu-published-#{Rails.env}"
 
-    mail :bcc => users.map(&:email),
+    mail :to => ENV["MENU_RECIPIENT_GROUP"],
          :from => ActionMailer::Base.smtp_settings[:user_name],
          :subject => "Опубликовано меню на \"#{@menu}\""
   end
